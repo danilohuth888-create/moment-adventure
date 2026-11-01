@@ -2,57 +2,51 @@
 <html lang="de">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
-  <meta name="theme-color" content="#14111b">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#10111d">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="MOMENT">
-  <meta name="description" content="MOMENT v0.4 — Offline Pixel-Fantasy-RPG im Survivors-Stil.">
-  <link rel="manifest" href="./manifest.webmanifest">
-  <link rel="apple-touch-icon" href="./icon-180.png">
+  <meta name="description" content="MOMENT — ein echtes Pixel-Fantasy-Survivors-RPG für dein Handy. Komplett offline, ohne Werbung und Konto.">
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
-  <title>MOMENT — Pixel Adventure</title>
+  <link rel="apple-touch-icon" href="./icon-180.png">
+  <link rel="manifest" href="./manifest.webmanifest">
   <link rel="stylesheet" href="./style.css">
+  <title>MOMENT · Aetheria</title>
 </head>
-<body data-screen="home">
-  <div id="frame">
-    <canvas id="game" aria-label="Spielwelt"></canvas>
-    <header id="hud" class="hidden">
-      <div class="hud-block left">
-        <div class="hud-line"><span id="class-label">ARKANIST</span><span id="level">LV 1</span></div>
-        <div class="bar pixel health"><div id="health-fill" class="fill"></div><span id="hp-label">100/100</span></div>
-        <div class="bar pixel xp"><div id="xp-fill" class="fill"></div></div>
+<body>
+  <main id="app" aria-label="MOMENT Pixel-RPG">
+    <canvas id="world" aria-label="Pixel-Spielwelt"></canvas>
+    <div id="shade"></div>
+    <div id="hud" class="hidden">
+      <div class="hud-top">
+        <div class="hero-hud">
+          <div class="hero-portrait" id="hero-portrait">✦</div>
+          <div class="hero-bars">
+            <div class="hud-names"><span id="hud-class">ARKANIST</span><span id="hud-level">LV 1</span></div>
+            <div class="meter meter-hp"><div id="hp-fill" class="meter-fill"></div><span id="hp-text">100/100</span></div>
+            <div class="meter meter-xp"><div id="xp-fill" class="meter-fill"></div></div>
+          </div>
+        </div>
+        <div class="hud-right"><div id="hud-time">00:00</div><div id="hud-kills">0 BESIEGT</div><button id="pause-button" class="pixel-icon-btn" aria-label="Pausieren">Ⅱ</button></div>
       </div>
-      <div class="hud-block right">
-        <div class="hud-line"><span id="area-label">WALD I</span><span id="room-label">RAUM 1/5</span></div>
-        <div class="hud-line small"><span id="coins">GOLD 0</span><span id="kill-label">0 / 12</span></div>
-      </div>
-      <button id="pause" class="pixel-btn icon">II</button>
-    </header>
-
-    <div id="combat-ui" class="hidden">
-      <div id="joy-zone">
-        <div id="joy-ring"><div id="joy-stick"></div></div>
-        <span class="caption">MOVE</span>
-      </div>
-      <div id="actions">
-        <button id="dash" class="action pixel-btn"><span class="glyph">⇢</span><small>DASH</small></button>
-        <button id="skill" class="action pixel-btn"><span class="glyph">✦</span><small id="skill-timer">SKILL</small></button>
+      <div class="hud-progress"><span id="hud-world">01 · FLÜSTERWALD</span><span id="hud-wave">WELLE 1</span></div>
+      <div id="boss-bar" class="boss-bar hidden"><span id="boss-name">BOSS</span><div class="meter meter-boss"><div id="boss-fill" class="meter-fill"></div></div></div>
+    </div>
+    <div id="controls" class="hidden">
+      <div id="joystick" role="group" aria-label="Bewegung"><div id="joystick-knob"></div></div>
+      <div class="controls-right"><button id="dash-button" class="ability ability-dash" aria-label="Sprinten"><span class="ability-symbol">↗</span><small id="dash-label">SPRINT</small></button><button id="ultimate-button" class="ability ability-ultimate" aria-label="Spezialangriff"><span class="ability-symbol">✧</span><small id="ultimate-label">ULTI</small></button></div>
+    </div>
+    <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+    <div id="overlay" class="overlay">
+      <div class="shell">
+        <div class="top-strip"><span class="brand-mini">✦ MOMENT <span class="muted">/ AETHERIA</span></span><span id="offline-status" class="offline-tag">● OFFLINE-PAKET</span></div>
+        <section id="screen" class="screen" aria-live="off"></section>
+        <div class="bottom-strip"><span>REALMS OF ADVENTURE</span><span>VERSION 1.0</span></div>
       </div>
     </div>
-
-    <div id="toast" class="hidden" role="status" aria-live="polite"></div>
-
-    <div id="overlay" role="dialog" aria-modal="true" aria-labelledby="panel-title">
-      <div id="main-shell">
-        <div class="topbar"><span>MOMENT // PIXEL ADVENTURE</span><span class="tag">OFFLINE</span></div>
-        <section id="panel" class="panel"><h1 id="panel-title">MOMENT</h1><p>PIXEL-FANTASY FÜR JEDERZEIT.</p></section>
-        <div class="bottombar"><span>PIXEL BUILD v0.4</span><span>NO ADS · LOCAL SAVE</span></div>
-      </div>
-    </div>
-
-    <input id="import-save" type="file" accept=".json,application/json" hidden>
-  </div>
+    <input type="file" id="import-file" accept=".json,application/json" hidden>
+  </main>
   <script src="./game.js" defer></script>
 </body>
 </html>
